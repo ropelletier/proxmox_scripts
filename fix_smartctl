@@ -1,4 +1,5 @@
 #!/bin/bash
+## https://forum.proxmox.com/threads/disk-smart-status-no-longer-working.82748/
 cat > smartctl.sh <<'endmsg'
 SMARTCTL=/usr/sbin/smartctl.orig
 OPTIONS=("$@")
