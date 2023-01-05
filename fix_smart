@@ -1,0 +1,51 @@
+#!/bin/bash
+cat > smartctl.sh <<'endmsg'
+SMARTCTL=/usr/sbin/smartctl.orig
+OPTIONS=("$@")
+ 
+# build up map for a-h
+char_index=({a..h})
+declare -A num_map
+for((i=0; i < ${#char_index[*]}; ++i)); do
+    num_map[${char_index[i]}]=$i
+done
+ 
+for((i=1; i<$#; ++i)); do
+    device_letter="${OPTIONS[i]#/dev/sd}"
+    # only proceed if the given device ends with [a-h]
+    if [[ ! -z "${num_map[$device_letter]:-}" ]]; then
+        cciss_device="-d cciss,${num_map[$device_letter]}"
+        # add the "-d cciss,X" option to the list of options
+        OPTIONS=($cciss_device "${OPTIONS[@]}")
+    fi
+
+done
+
+# rebuid map for i-p
+# this is certainly bad practice
+
+char_index=({i..p})
+declare -A num_map
+for((i=0; i < ${#char_index[*]}; ++i)); do
+    num_map[${char_index[i]}]=$i
+done
+ 
+for((i=1; i<$#; ++i)); do
+    device_letter="${OPTIONS[i]#/dev/sd}"
+    # only proceed if the given device ends with [i-p]
+    if [[ ! -z "${num_map[$device_letter]:-}" ]]; then
+        cciss_device="-d cciss,${num_map[$device_letter]}"
+        # add the "-d cciss,X" option to the list of options
+        OPTIONS=($cciss_device "${OPTIONS[@]}")
+    fi
+
+done
+
+exec $SMARTCTL "${OPTIONS[@]}"
+endmsg
+
+mv /usr/sbin/smartctl /usr/sbin/smartctl.orig
+cp smartctl.sh /usr/sbin/smartctl
+chmod 755 /usr/sbin/smartctl
+chattr +i /usr/sbin/smartctl
+
