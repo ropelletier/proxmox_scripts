@@ -1,4 +1,6 @@
 #!/bin/bash
+apt update
+apt install openjdk-11-jre
 wget 'https://download.schneider-electric.com/files?p_enDocType=Software+-+Release&p_File_Name=pcns441Linux-x86-64.tar.gz&p_Doc_Ref=SPD_PCNS_441_LINUX_EN' -O pcns441Linux-x86-64.tar.gz
 tar -xf pcns441Linux-x86-64.tar.gz 
 cd Linux_x64/
