@@ -1,48 +1,50 @@
 #!/bin/bash
 ## https://forum.proxmox.com/threads/disk-smart-status-no-longer-working.82748/
 cat > smartctl.sh <<'endmsg'
+#!/bin/bash
+# ----------------------------------------------------------
+# Wrapper for smartctl for supporting HP P212 HBA and USB
+# Sandisk.
+#
+# Author: joanandk
+# Created: Apr 28, 2022
+# Modified:
+# License: GNU Affero General Public License
+# Inspired by: udo.rader@bestsolution.at
+# ----------------------------------------------------------
+# Instructions:
+# Move the binary in /usr/sbin/smartctl to smartctl.orig
+# create a script with this code and make it executable
+
 SMARTCTL=/usr/sbin/smartctl.orig
-OPTIONS=("$@")
- 
-# build up map for a-h
-char_index=({a..h})
-declare -A num_map
-for((i=0; i < ${#char_index[*]}; ++i)); do
-    num_map[${char_index[i]}]=$i
-done
- 
-for((i=1; i<$#; ++i)); do
-    device_letter="${OPTIONS[i]#/dev/sd}"
-    # only proceed if the given device ends with [a-h]
-    if [[ ! -z "${num_map[$device_letter]:-}" ]]; then
-        cciss_device="-d cciss,${num_map[$device_letter]}"
-        # add the "-d cciss,X" option to the list of options
-        OPTIONS=($cciss_device "${OPTIONS[@]}")
-    fi
+# Get the block name:
+OPTIONS=("$*")
+TEMP=${OPTIONS#*/dev/}
+[ -z "${TEMP}" ] && exit
+PD_ADR="${TEMP:0:3}"
 
-done
+# Hack for disks connected to HP Smart Array:
+SA_ID=$(lspci -D | grep "Smart Array" | cut -d\  -f1)
+SA_PD=$(readlink /sys/class/block/$PD_ADR | grep $SA_ID)
+if [ ! -z ${SA_ID} ] && [ ! -z ${SA_PD} ]; then
+   PD_ALL=$(readlink /sys/block/sd* | grep $SA_ID | rev | cut -d/ -f1 | rev)
+   INDEX=0
+   for Search_PD in $PD_ALL; do
+      if [ "${PD_ADR}" == "${Search_PD}" ]; then
+         OPTIONS="-d cciss,${INDEX} ${OPTIONS}"
+         break
+      fi
+      INDEX=$[$INDEX+1]
+   done
+fi
 
-# rebuid map for i-p
-# this is certainly bad practice
+# Hack for USB pendrives:
+USB_DEV=$(readlink /sys/class/block/$PD_ADR | grep usb | cut -d/ -f6)
+if [ ! -z ${USB_DEV} ]; then
+   OPTIONS="-d scsi ${OPTIONS}"
+fi
 
-char_index=({i..p})
-declare -A num_map
-for((i=0; i < ${#char_index[*]}; ++i)); do
-    num_map[${char_index[i]}]=$i
-done
- 
-for((i=1; i<$#; ++i)); do
-    device_letter="${OPTIONS[i]#/dev/sd}"
-    # only proceed if the given device ends with [i-p]
-    if [[ ! -z "${num_map[$device_letter]:-}" ]]; then
-        cciss_device="-d cciss,${num_map[$device_letter]}"
-        # add the "-d cciss,X" option to the list of options
-        OPTIONS=($cciss_device "${OPTIONS[@]}")
-    fi
-
-done
-
-exec $SMARTCTL "${OPTIONS[@]}"
+exec $SMARTCTL ${OPTIONS}
 endmsg
 
 mv /usr/sbin/smartctl /usr/sbin/smartctl.orig
