@@ -3,7 +3,7 @@ apt install zabbix-agent -y
 
 systemctl stop zabbix-agent
 
-cat > file << 'EOF'
+cat > /etc/zabbix/zabbix_agentd.conf << 'EOF'
 # This is a configuration file for Zabbix agent daemon (Unix)
 # To get more information about Zabbix, visit http://www.zabbix.com
 
