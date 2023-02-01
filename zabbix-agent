@@ -1,0 +1,68 @@
+#!/bin/bash
+apt install zabbix-agent -y
+
+systemctl stop zabbix-agent
+
+cat > file << 'EOF'
+# This is a configuration file for Zabbix agent daemon (Unix)
+# To get more information about Zabbix, visit http://www.zabbix.com
+
+############ GENERAL PARAMETERS #################
+
+PidFile=/run/zabbix/zabbix_agentd.pid
+
+### Option: LogType
+LogType=file
+
+LogFile=/var/log/zabbix-agent/zabbix_agentd.log
+
+LogFileSize=200
+
+### Option: DebugLevel
+# DebugLevel=3
+
+LogRemoteCommands=1
+
+##### Passive checks related
+
+### Option: Server
+Server=10.10.100.15
+
+ServerActive=10.10.100.15
+
+### Option: HostnameItem
+#       Item used for generating Hostname if it is undefined. Ignored if Hostname is defined.
+#       Does not support UserParameters or aliases.
+#
+# Mandatory: no
+# Default:
+HostnameItem=system.hostname
+
+HostMetadata=Linux
+
+HostMetadataItem=system.uname
+
+# Include=/etc/zabbix/zabbix_agentd.userparams.conf
+# Include=/etc/zabbix/zabbix_agentd.conf.d/
+Include=/etc/zabbix/zabbix_agentd.conf.d/*.conf
+
+####### USER-DEFINED MONITORED PARAMETERS #######
+
+### Option: UnsafeUserParameters
+# UnsafeUserParameters=0
+
+### Option: UserParameter
+UserParameter=release,. /etc/os-release; echo "$PRETTY_NAME"
+
+####### LOADABLE MODULES #######
+
+### Option: LoadModulePath
+# LoadModulePath=${libdir}/modules
+
+### Option: LoadModule
+# LoadModule=
+
+EOF
+
+systemctl enable zabbix-agent
+systemctl start zabbix-agent
