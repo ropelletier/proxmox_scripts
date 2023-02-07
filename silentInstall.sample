@@ -11,8 +11,8 @@
 # This must be changed to YES to accept the EULA.  This is not case
 # sensitive.
 
-ACCEPT_EULA=NO
-#ACCEPT_EULA=YES
+#ACCEPT_EULA=NO
+ACCEPT_EULA=YES
 
 # ------------------------------------------------------------------
 # PowerChute's Customer Experience Improvement Program ("CEIP") provides 
@@ -29,7 +29,7 @@ ACCEPT_EULA=NO
 # You can join or leave the CEIP at any time.
 # ------------------------------------------------------------------
 
-CEIP=yes
+CEIP=no
 
 # -------------------------------------------------------------------
 # The directory in which to install PCNS:
@@ -79,7 +79,7 @@ REGISTER_WITH_NMC=YES
 # Values specified here are not case sensitive.
 # -------------------------------------------------------------------
 
-# MODE=single
+MODE=single
 
 # -------------------------------------------------------------------
 # Fill in the below fields with the correct network configuration. Ensure
@@ -145,7 +145,7 @@ PROTOCOL=https
 # connection.  By default the NMC uses a self signed certificate, 
 # which needs to be accepted.
 #
-# ACCEPTCERTS=YES 
+ACCEPTCERTS=YES 
 # Certificates which are self signed, or have some other issue, will
 # be automatically accepted (Recommended)
 #
