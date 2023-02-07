@@ -1,0 +1,406 @@
+# APC PowerChute Network Shutdown (PCNS) Silent Installer
+# 
+# This file contains parameters used by the PCNS silent
+# install option to support mass installation.
+#
+# Do not enclose values in quotes
+#
+# -------------------------------------------------------------------
+# Accept the EULA.
+#
+# This must be changed to YES to accept the EULA.  This is not case
+# sensitive.
+
+ACCEPT_EULA=NO
+#ACCEPT_EULA=YES
+
+# ------------------------------------------------------------------
+# PowerChute's Customer Experience Improvement Program ("CEIP") provides 
+# us with the information that enables us to improve our product and 
+# services, and helps us to advise you on how best to deploy and configure
+# PowerChute. As part of the CEIP, we will collect certain information 
+# about how you configure and use PowerChute Network Shutdown in your 
+# environment.  This information is completely anonymous, and cannot 
+# be used to personally identify any individual.  For more information, 
+# please refer to our CEIP Frequently Asked Questions. 
+# 
+# If you prefer not to participate in the PowerChute CEIP set below to:
+#
+# You can join or leave the CEIP at any time.
+# ------------------------------------------------------------------
+
+CEIP=yes
+
+# -------------------------------------------------------------------
+# The directory in which to install PCNS:
+# The default value /opt/APC is used if commented out or specified 
+# null value as "INSTALL_DIR="
+#
+# Values specified here are case sensitive.
+# -------------------------------------------------------------------
+
+INSTALL_DIR=/opt/APC
+
+# -------------------------------------------------------------------
+# The directory in which java is installed:
+#
+# This is only needed if PCNS does not bundle java for this OS 
+# (eg HPUX, AIX, SPARC) See PowerChute Documentation for more details.
+#
+# This directory must specify a Java Runtime version 1.8.0 or later.
+#
+# Values specified here are case sensitive. 
+# -------------------------------------------------------------------
+
+# JAVA_DIR=/opt/java8
+
+# -------------------------------------------------------------------
+# The silent install can register this host's IP address with the 
+# management card. If you are installing PCNS on more than 50 hosts
+# for one management card, consult the PCNS Installation Guide. Valid
+# values for this parameter are "no" or "yes".
+#
+# Values specified here are not case sensitive.
+# -------------------------------------------------------------------
+
+REGISTER_WITH_NMC=YES
+
+# -------------------------------------------------------------------
+# Uncomment and edit the following to specify the installation 
+# configuration.  The installation mode can have one of the 
+# following values:
+#
+# 'single': Register with a single NMC card.
+# 'redundant': Register with several NMC cards in a redundant  
+#	configuration.
+# 'parallel': Register with several NMC cards in a parallel 
+#	configuration.
+#
+# Values specified here are not case sensitive.
+# -------------------------------------------------------------------
+
+# MODE=single
+
+# -------------------------------------------------------------------
+# Fill in the below fields with the correct network configuration. Ensure
+# all the NMCs and servers are in the same network configuration.
+#
+# Valid values for NETWORKCONFIG are 'IPv4' and 'IPv6'
+#
+# Valid values for IPV6NETWORKCONFIG are 'Unicast' and 'Multicast'. This
+# parameter need not specified if the network configuration is IPv4
+# -------------------------------------------------------------------
+
+NETWORKCONFIG=IPv4
+#IPV6NETWORKCONFIG= 
+
+# -------------------------------------------------------------------
+# Uncomment and edit the following to specify the UPS Network 
+# Management cards to register with.
+# -------------------------------------------------------------------
+
+# IP_1=000.000.000.000
+# IP_2=000.000.000.000
+# IP_3=000.000.000.000
+# IP_4=000.000.000.000
+# IP_5=000.000.000.000
+# IP_6=000.000.000.000
+# IP_7=000.000.000.000
+# IP_8=000.000.000.000
+# IP_9=000.000.000.000
+
+# -------------------------------------------------------------------
+# Uncomment and edit the following to specify the UPS Outlet Group 
+# for each UPS NMC.  The value given is the outlet number.
+# -------------------------------------------------------------------
+
+# IP_1_Outlet=0
+# IP_2_Outlet=0
+# IP_3_Outlet=0
+# IP_4_Outlet=0
+# IP_5_Outlet=0
+# IP_6_Outlet=0
+# IP_7_Outlet=0
+# IP_8_Outlet=0
+# IP_9_Outlet=0
+
+# -------------------------------------------------------------------
+# This value specifies the UPS Network Management Port to use for
+# registration.  Valid values are 80, 443, and 5000 to 32768.
+# -------------------------------------------------------------------
+
+PORT=443
+
+# -------------------------------------------------------------------
+# This value specifies the protocol to use when registering with the
+# UPS Network Management Card.  Valid values are 'http' or 'https'.
+#
+# Values specified here are not case sensitive.
+# -------------------------------------------------------------------
+
+PROTOCOL=https
+
+# -------------------------------------------------------------------
+# When using the https protocol, SSL certificates are used to secure the 
+# connection.  By default the NMC uses a self signed certificate, 
+# which needs to be accepted.
+#
+# ACCEPTCERTS=YES 
+# Certificates which are self signed, or have some other issue, will
+# be automatically accepted (Recommended)
+#
+# ACCEPTCERTS=NO
+# Connection will only be established if the NMC has been configured
+# with a valid certificate.
+#
+# Values specified here are not case sensitive.
+# -------------------------------------------------------------------
+
+#ACCEPTCERTS=YES
+
+# -------------------------------------------------------------------
+# Fill in the below fields with the correct security information.
+# The Administrator User Name and Authentication Phrase must match
+# the settings of the Management Card in your UPS.
+#
+# Values specified here are case sensitive.
+# -------------------------------------------------------------------
+
+USERNAME=
+PASSWORD=
+AUTHENTICATION_PHRASE=
+
+# -------------------------------------------------------------------
+# Uncomment and edit the following only if you have more than one
+# network card installed locally. The below fields should specify
+# which local IP address to register with the UPS Network Management
+# Card. 
+# 
+# This field will be read if the network configuration is IPv4
+# -------------------------------------------------------------------
+
+#LOCAL_IP_ADDRESS=000.000.000.000
+
+# -------------------------------------------------------------------
+# The below fields should specify unicast/multicast address to register 
+# with the UPS Network Management Card. 
+# 
+# This field will be read if the network configuration is IPv6.
+#
+# Both Unicast and Multicast address are required if the IPV6NETWORKCONFIG
+# is 'Multicast'. If IPV6NETWORKCONFIG is 'Unicast' only Unicast address
+# is required.
+# -------------------------------------------------------------------
+
+#UNICAST_ADDRESS=
+#MULTICAST_ADDRESS=
+
+#--------------------------------------------------------------------
+# SNMP Settings
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# This is the SNMP Discovery Port.  
+#
+#   Uncomment this to enable SNMP, and set the SNMP port.
+#   Leave commented out to install without SNMP support
+#--------------------------------------------------------------------
+#SNMP_PORT=161
+
+#ENABLE_SNMPV1_ACCESS=False
+
+#--------------------------------------------------------------------
+#  SNMPV1 Profiles
+#  PCNS allows you to configure up to 5 v1 profiles.
+#  Profiles are numbered, starting from 1, and are created using 
+#  the following keys.  
+# 
+# Replace X by the index of the profile (1,2 etc)
+#
+# NAME_COMMUNITY_X   
+#  		Description:  This is the name of the community and must be <= 15 Characters
+#
+# ACCESS_TYPE_COMMUNITY_X		
+#       Description:  Access Type:  Possible Values: READONLY, READWRITE, DISABLED
+#
+# NMS_COMMUNITY_X				
+#       Description: IP address of the NMS who can connect. 0.0.0.0 will allow 
+#		connections  from any address.  May be IPv4 or IPv6
+#
+#  Uncomment the section below to create a new Profile.  Copy and change
+#  the number to create multiple Profiles.
+#--------------------------------------------------------------------
+
+#NAME_COMMUNITY_1=
+#ACCESS_TYPE_COMMUNITY_1=
+#NMS_COMMUNITY_1=0.0.0.0
+
+#NAME_COMMUNITY_2=
+#ACCESS_TYPE_COMMUNITY_2=
+#NMS_COMMUNITY_2=0.0.0.0
+
+
+
+#ENABLE_SNMPV3_ACCESS=True
+
+#--------------------------------------------------------------------
+#     SNMPV3 Profiles
+#  PCNS allows you to configure up to 5 v3 profiles.
+#  Profiles are numbered, starting from 1, and are created using 
+#  the following keys.  
+#
+#  Replace X by the index of the profile (1,2 etc)
+#
+#  USERNAME_PROFILE_X			
+#       Description:  User name must be less than 32 characters
+#
+#  AUTH_PROTOCOL_PROFILE_X
+#       Possible Values: NONE, SHA1, MD5, SHA256, SHA512
+#
+#  AUTH_PASSPHRASE_PROFILE_X
+#       Description:  Passphrase must be 8 to 32 Characters long
+#
+#  PRIV_PROTOCOL_PROFILE_X
+#       Possible Values: NONE,  AES128, AES192, AES192EX, 
+#                        AES256, AES256EX, DES
+#       NOTE: AES192EX and AES256EX are non-standard implementations
+#             which "Some devices and SNMP tools" use with an 
+#             AES key extension algorithm that was not specified 
+#             in the IETF Specification 
+#
+#  PRIV_PASSPHRASE_PROFILE_X
+#       Description:  Passphrase must be 8 to 32 Characters long
+#
+#  ACCESS_TYPE_PROFILE_X
+#       Description:  Possible Values: READONLY, READWRITE, DISABLED
+#
+#  Uncomment the section below to create a new Profile.  Copy and change
+#  the number to create multiple Profiles.
+#--------------------------------------------------------------------
+
+#USERNAME_PROFILE_1=
+#AUTH_PROTOCOL_PROFILE_1=
+#AUTH_PASSPHRASE_PROFILE_1=
+#PRIV_PROTOCOL_PROFILE_1=
+#PRIV_PASSPHRASE_PROFILE_1=
+#ACCESS_TYPE_PROFILE_1=
+
+#USERNAME_PROFILE_2=
+#AUTH_PROTOCOL_PROFILE_2=
+#AUTH_PASSPHRASE_PROFILE_2=
+#PRIV_PROTOCOL_PROFILE_2=
+#PRIV_PASSPHRASE_PROFILE_2=
+#ACCESS_TYPE_PROFILE_2=
+
+#--------------------------------------------------------------------
+#  PowerChute Lost Communications Traps
+#
+#  PowerChute will send a LostComs trap for the following reasons:
+#     Network Communications Lost
+#        If PowerChute cannot communicate with the Network Management Card 
+#        of the UPS, a trap is sent to the configured Trap Receiver.
+#     UPS Communications Lost
+#        If the Network Management Card cannot communicate with the UPS, a 
+#        trap is sent to the configured Trap Receiver.
+#
+#  For Guidance see Description below each setting
+#--------------------------------------------------------------------
+
+#LostCommsEvents_Enabled=true
+#       Description:  (true | false)  Send the trap or not
+
+#LostCommsEvents_SendClearingTrap=true
+#       Description:  (true | false)  Send a trap when communications are restored 
+
+#LostCommsEvents_Delay=0
+#       Description:  how long (in seconds) to wait after the event before 
+#            sending the trap
+
+#LostCommsEvents_RepeatInterval=30
+#       Description:  how long (in seconds) between repeated 
+#            traps (must be > 0)
+
+#LostCommsEvents_RepeatUntilCleared=true
+#       Description:  (true | false)  Continue sending the 
+#            trap every RepeatInterval seconds until communications are restored
+ 
+#LostCommsEvents_RepeatTimes=0
+#       Description:  repeat the trap this many time, then stop
+#            used when RepeatUntilCleared is false          
+	
+
+#--------------------------------------------------------------------
+# PowerChute Critical Event Trap
+# When a critical event (such as On Battery) occurs and a Shutdown is triggered, 
+# PowerChute sends an SNMP trap detailing the Event Name, UPS Setup (for advanced 
+# configurations), and Affected Virtual Hosts (if Virtualization support is enabled).
+#
+#  For Guidance see Description below each setting
+#--------------------------------------------------------------------
+
+#UPSCriticalEvents_Enabled=true     
+#       Description: (true | false)  Send the trap or not
+
+#UPSCriticalEvents_SendClearingTrap=true
+#       Description: (true | false)  Send a trap when the critical event clears
+
+#UPSCriticalEvents_Delay=0
+#       Description: how long (in seconds) to wait after the event before sending the trap
+
+#UPSCriticalEvents_RepeatInterval=30  
+#       Description: how long (in seconds) between repeated  traps (must be > 0)
+
+#UPSCriticalEvents_RepeatUntilCleared=true
+#       Description:  (true | false)   Continue sending the 
+#         trap every RepeatInterval seconds until the critical 
+#         event clears 
+
+#UPSCriticalEvents_RepeatTimes=0
+#       Description: repeat the trap this many time, then stop
+#          used when RepeatUntilCleared is false 
+
+
+#--------------------------------------------------------------------
+#  Trap Receivers
+#
+#  PCNS allows you to configure as many trap receivers as required.
+#  Trap receivers are numbered, starting from 1, and are created using 
+#  the following keys.  
+#
+#  Replace X by the index of the receiver (1,2 etc)
+#
+#  Enabled_TrapReceiver_X			
+#       Description: (true | false) Trap receivers can be 
+#          temporarily disabled
+#
+#  NMS_TrapReceiver_X			
+#       Description:  Hostname or IP address of the trap 
+#           receiver. Supports IPv4 and IPv6
+#
+#  Port_TrapReceiver_X			
+#       Description:  Port the Trap receiver is listening on
+#
+#  Type_TrapReceiver_X			
+#       Description:  (V1 | V3)   Which type of SNMP trap is sent. 
+#
+#  ProfileName_TrapReceiver_X			
+#       Description:  This depends on Type_TrapReceiver. It is either:
+#                       If Type_TrapReceiver is V1 this is the Name of one 
+#                          of the SNMPV1 Profiles (NAME_COMMUNITY as 
+#                          configured above)
+#                       If Type_TrapReceiver is V3 this is the UserName of
+#                          one of the SNMPV3 Profiles (USERNAME_PROFILE as 
+#                          configured above)
+#--------------------------------------------------------------------
+	
+#Enabled_TrapReceiver_1=
+#NMS_TrapReceiver_1=
+#Port_TrapReceiver_1=
+#Type_TrapReceiver_1=
+#ProfileName_TrapReceiver_1=
+
+#Enabled_TrapReceiver_2=
+#NMS_TrapReceiver_2=
+#Port_TrapReceiver_2=
+#Type_TrapReceiver_2=
+#ProfileName_TrapReceiver_2=
