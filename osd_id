@@ -1,0 +1,3 @@
+
+
+udevadm info --query=all --name=/dev/sdf | grep ID_SERIAL 
