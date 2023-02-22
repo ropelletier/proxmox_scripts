@@ -1,16 +1,19 @@
 #add virtio drivers
-grep -i virtio /boot/config-$(uname -r)
-lsinitrd /boot/initramfs-$(uname -r).img | grep virtio
-yum install -y ncurses-devel gcc make wget
+#grep -i virtio /boot/config-$(uname -r)
+#lsinitrd /boot/initramfs-$(uname -r).img | grep virtio
+#yum install -y ncurses-devel gcc make wget
 cd /usr/src/
-wget https://mirrors.edge.kernel.org/pub/linux/kernel/v3.0/linux-3.10.tar.gz
+#wget https://mirrors.edge.kernel.org/pub/linux/kernel/v3.0/linux-3.10.tar.gz
+wget https://mirrors.edge.kernel.org/pub/linux/kernel/v3.0/linux-3.10.108.tar.gz --no-certificate-check
 #https://mirrors.edge.kernel.org/pub/linux/kernel/v3.0/linux-3.10.108.tar.xz
-tar -zxvf linux-3.10.tar.gz
-ln -s linux-3.10 linux
+#tar -zxvf linux-3.10.tar.gz
+tar -zxvf linux-3.10.108.tar.gz
+#ln -s linux-3.10 linux
+ln -s linux-3.10.108 linux
 cd /usr/src/linux
 make mrproper
 make menuconfig
-
+exit
 
 make bzImage && make modules && make modules_install
 make install
