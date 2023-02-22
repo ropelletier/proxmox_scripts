@@ -14,6 +14,8 @@ lsinitrd /boot/initramfs-$version.img | grep virtio
 cd /boot
 dracut -f /boot/initramfs-$version.img $version --add-drivers "virtio virtio_pci virtio_blk virtio_net"
 
+dracut --regenerate-all -f && grub2-mkconfig -o /boot/grub2/grub.cfg
+
 # prove it worked
 lsinitrd /boot/initramfs-$version.img | grep virtio
 
