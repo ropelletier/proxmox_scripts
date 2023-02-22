@@ -1,10 +1,10 @@
 # chroot in
-cd /mnt
-chroot root bash
+#cd /mnt
+#chroot root bash
 
 # set the version
-cat /etc/grub/grub.cnf
-version=
+#cat /etc/grub/grub.cnf
+version=3.10.0-1127.19.1.el7.x86_64
 # example: version=3.10.0-1062.1.2.el7.x86_64
 
 # check for virtio drivers
