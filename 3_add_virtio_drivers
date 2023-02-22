@@ -1,0 +1,15 @@
+
+
+#https://community.freepbx.org/t/no-boot-after-upgrading-to-sangoma-7-via-virtualbox-and-then-back-to-hyper-v/72237
+
+mount --bind /proc /mnt/sysimage/proc
+mount --bind /dev /mnt/sysimage/dev
+mount --bind /sys /mnt/sysimage/sys
+mount --bind /run /mnt/sysimage/run
+systemctl start multipathd.service
+
+chroot /mnt/sysimage
+
+cd /boot
+
+mkinitrd --with virtio_pci --with virtio_blk -f /boot/initrd-$(uname -r).img $(uname -r)
