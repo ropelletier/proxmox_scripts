@@ -18,3 +18,7 @@ chroot /mnt/sysimage
 cd /boot
 
 mkinitrd --with virtio_pci --with virtio_blk -f /boot/initrd-$version.img $version
+
+
+
+dracut –regenerate-all --force
