@@ -2,6 +2,11 @@
 
 #https://community.freepbx.org/t/no-boot-after-upgrading-to-sangoma-7-via-virtualbox-and-then-back-to-hyper-v/72237
 version=3.10.0-1062.1.2.el7.x86_64
+mkdir -p /mnt/sysimage/proc
+mkdir -p /mnt/sysimage/dev
+mkdir -p /mnt/sysimage/sys
+mkdir -p /mnt/sysimage/run
+
 mount --bind /proc /mnt/sysimage/proc
 mount --bind /dev /mnt/sysimage/dev
 mount --bind /sys /mnt/sysimage/sys
