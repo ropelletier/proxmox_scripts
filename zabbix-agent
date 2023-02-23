@@ -65,4 +65,4 @@ UserParameter=release,. /etc/os-release; echo "$PRETTY_NAME"
 EOF
 
 systemctl enable zabbix-agent
-systemctl start zabbix-agent
+systemctl restart zabbix-agent
