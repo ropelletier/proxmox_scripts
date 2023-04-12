@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -z "$1" ]
+then
+      echo "\$1 is empty"
+fi
+if [ -z "$2" ]
+then
+      echo "\$2 is empty"
+fi
+cp /var/lib/vz/dump/$1 /mnt/pve/Containers/template/cache/$2
